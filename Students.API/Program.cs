@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Students.API.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 const string CorsPolicyName = "AllowStudentsClient";
@@ -19,6 +22,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<AppDbContext>(opt =>
+    opt.UseNpgsql("Host=localhost;Port=5432;Database=swe_group_a;Username=ervistrupja"));
 
 var app = builder.Build();
 
