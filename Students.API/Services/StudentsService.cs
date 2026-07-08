@@ -1,31 +1,18 @@
+using Students.API.Data;
 using Students.API.Models;
 
 namespace Students.API.Services;
 
-public static class StudentsService
+public class StudentsService(AppDbContext context)
 {
-    public static List<Student> fakeDbStudents = new List<Student>()
+    public List<Student> GetAllStudents()
     {
-        new Student()
-        {
-            Id = 1,
-            Name = "Test 01"
-        },
-        new Student()
-        {
-            Id = 2,
-            Name = "Test 02"
-        }
-    };
-
-    public static List<Student> GetAllStudents()
-    {
-        return fakeDbStudents;
+        return context.Students.ToList();
     }
     
     public static Student? GetStudentById(int id)
     {
-        return fakeDbStudents.FirstOrDefault(x => x.Id == id);
+        return context.FirstOrDefault(x => x.Id == id);
     }
 
     public static Student AddStudent(Student student)

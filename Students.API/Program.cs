@@ -23,8 +23,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseNpgsql("Host=localhost;Port=5432;Database=swe_group_a;Username=ervistrupja"));
+//Database Configuration
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql("database_connection_string"));
 
 var app = builder.Build();
 
