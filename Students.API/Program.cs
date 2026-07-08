@@ -24,7 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Database Configuration
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql("Host=localhost;Port=5432;Database=epoka_demo_01;Username=ervistrupja"));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql("database_connection_string"));
 
 var app = builder.Build();
 
