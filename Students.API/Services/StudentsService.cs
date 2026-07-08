@@ -9,36 +9,42 @@ public class StudentsService(AppDbContext context)
     {
         return context.Students.ToList();
     }
-    
-    public static Student? GetStudentById(int id)
+
+    public Student? GetStudentById(int id)
     {
-        return context.FirstOrDefault(x => x.Id == id);
+        return context.Students.FirstOrDefault(x => x.Id == id);
     }
 
-    public static Student AddStudent(Student student)
+    public Student AddStudent(Student student)
     {
-        fakeDbStudents.Add(student);
+        context.Students.Add(student);
+        context.SaveChanges();
         return student;
     }
 
-    public static Student? UpdateStudent(Student student)
+    public Student? UpdateStudent(Student student)
     {
-        var existingStudent = fakeDbStudents.FirstOrDefault(x => x.Id == student.Id);
+        var existingStudent = context.Students.FirstOrDefault(x => x.Id == student.Id);
         if (existingStudent != null)
         {
             existingStudent.Name = student.Name;
+            existingStudent.Math = student.Math;
+            existingStudent.English = student.English;
+            existingStudent.Science = student.Science;
+            context.SaveChanges();
             return existingStudent;
         }
 
         return null;
     }
 
-    public static void DeleteStudent(int id)
+    public void DeleteStudent(int id)
     {
-        var student = fakeDbStudents.FirstOrDefault(x => x.Id == id);
+        var student = context.Students.FirstOrDefault(x => x.Id == id);
         if (student != null)
         {
-            fakeDbStudents.Remove(student);
+            context.Students.Remove(student);
+            context.SaveChanges();
         }
     }
 }

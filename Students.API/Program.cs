@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Students.API.Data;
+using Students.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ builder.Services.AddSwaggerGen();
 
 //Database Configuration
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql("database_connection_string"));
+
+builder.Services.AddScoped<StudentsService>();
 
 var app = builder.Build();
 

@@ -6,40 +6,40 @@ namespace Students.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StudentsController : ControllerBase
+public class StudentsController(StudentsService studentsService) : ControllerBase
 {
     [HttpGet("GetAll")]
     public IActionResult GetAllStudents()
     {
-        var allStudents = StudentsService.GetAllStudents();
+        var allStudents = studentsService.GetAllStudents();
         return Ok(allStudents);
     }
-    
+
     [HttpGet("GetById")]
     public IActionResult GetStudentById(int id)
     {
-        var student = StudentsService.GetStudentById(id);
+        var student = studentsService.GetStudentById(id);
         return Ok(student);
     }
-    
+
     [HttpPost("AddNew")]
     public IActionResult CreateStudent([FromBody]Student payload)
     {
-        var addedStudent = StudentsService.AddStudent(payload);
+        var addedStudent = studentsService.AddStudent(payload);
         return Ok(addedStudent);
     }
 
     [HttpPut("Update")]
     public IActionResult UpdateStudent([FromBody] Student payload)
     {
-        var updatedStudent = StudentsService.UpdateStudent(payload);
+        var updatedStudent = studentsService.UpdateStudent(payload);
         return Ok(updatedStudent);
     }
 
     [HttpDelete("Delete")]
     public IActionResult DeleteStudent(int id)
     {
-        StudentsService.DeleteStudent(id);
+        studentsService.DeleteStudent(id);
         return Ok("Student deleted");
     }
 }
