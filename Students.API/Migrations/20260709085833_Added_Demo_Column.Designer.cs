@@ -11,8 +11,8 @@ using Students.API.Data;
 namespace Students.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260526101140_InitialMigrationGroupA")]
-    partial class InitialMigrationGroupA
+    [Migration("20260709085833_Added_Demo_Column")]
+    partial class Added_Demo_Column
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace Students.API.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Demo")
+                        .HasColumnType("text");
 
                     b.Property<double>("English")
                         .HasColumnType("double precision");
