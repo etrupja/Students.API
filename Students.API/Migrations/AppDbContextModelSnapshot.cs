@@ -29,6 +29,9 @@ namespace Students.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Demo")
+                        .HasColumnType("text");
+
                     b.Property<double>("English")
                         .HasColumnType("double precision");
 

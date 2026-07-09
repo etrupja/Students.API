@@ -9,37 +9,37 @@ namespace Students.API.Controllers;
 public class StudentsController(StudentsService studentsService) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public IActionResult GetAllStudents()
+    public async Task<IActionResult> GetAllStudents()
     {
-        var allStudents = studentsService.GetAllStudents();
+        var allStudents = await studentsService.GetAllStudentsAsync();
         return Ok(allStudents);
     }
 
     [HttpGet("GetById")]
-    public IActionResult GetStudentById(int id)
+    public async Task<IActionResult> GetStudentById(int id)
     {
-        var student = studentsService.GetStudentById(id);
+        var student = await studentsService.GetStudentByIdAsync(id);
         return Ok(student);
     }
 
     [HttpPost("AddNew")]
-    public IActionResult CreateStudent([FromBody]Student payload)
+    public async Task<IActionResult> CreateStudent([FromBody] Student payload)
     {
-        var addedStudent = studentsService.AddStudent(payload);
+        var addedStudent = await studentsService.AddStudentAsync(payload);
         return Ok(addedStudent);
     }
 
     [HttpPut("Update")]
-    public IActionResult UpdateStudent([FromBody] Student payload)
+    public async Task<IActionResult> UpdateStudent([FromBody] Student payload)
     {
-        var updatedStudent = studentsService.UpdateStudent(payload);
+        var updatedStudent = await studentsService.UpdateStudentAsync(payload);
         return Ok(updatedStudent);
     }
 
     [HttpDelete("Delete")]
-    public IActionResult DeleteStudent(int id)
+    public async Task<IActionResult> DeleteStudent(int id)
     {
-        studentsService.DeleteStudent(id);
+        await studentsService.DeleteStudentAsync(id);
         return Ok("Student deleted");
     }
 }

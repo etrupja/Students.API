@@ -7,4 +7,5 @@ public class Student
     public double Math { get; set; }
     public double English { get; set; }
     public double Science { get; set; }
+    public string? Demo { get; set; }
 }

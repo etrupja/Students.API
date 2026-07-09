@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Students.API.Data;
 using Students.API.Models;
 
@@ -5,46 +6,48 @@ namespace Students.API.Services;
 
 public class StudentsService(AppDbContext context)
 {
-    public List<Student> GetAllStudents()
+    public async Task<List<Student>> GetAllStudentsAsync()
     {
-        return context.Students.ToList();
+        return await context.Students.ToListAsync();
     }
 
-    public Student? GetStudentById(int id)
+    public async Task<Student?> GetStudentByIdAsync(int id)
     {
-        return context.Students.FirstOrDefault(x => x.Id == id);
+        return await context.Students.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public Student AddStudent(Student student)
+    public async Task<Student> AddStudentAsync(Student student)
     {
         context.Students.Add(student);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         return student;
     }
 
-    public Student? UpdateStudent(Student student)
+    public async Task<Student?> UpdateStudentAsync(Student student)
     {
-        var existingStudent = context.Students.FirstOrDefault(x => x.Id == student.Id);
+        var existingStudent = await context.Students
+            .FirstOrDefaultAsync(x => x.Id == student.Id);
+
         if (existingStudent != null)
         {
             existingStudent.Name = student.Name;
             existingStudent.Math = student.Math;
             existingStudent.English = student.English;
             existingStudent.Science = student.Science;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return existingStudent;
         }
 
         return null;
     }
 
-    public void DeleteStudent(int id)
+    public async Task DeleteStudentAsync(int id)
     {
-        var student = context.Students.FirstOrDefault(x => x.Id == id);
+        var student = await context.Students.FirstOrDefaultAsync(x => x.Id == id);
         if (student != null)
         {
             context.Students.Remove(student);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
